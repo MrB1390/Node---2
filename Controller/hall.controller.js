@@ -45,6 +45,12 @@ export const getRoomDetails = (req,res) => {
 export const createRoom = (req,res) => {
    try {
        const {room_seats,room_status,amentities,price_perhrs,room_name} = req.body;
+       const room_check = rooms.filter((e) => e.room_name === room_name);
+       if(room_check.length > 0){
+        return res.status(400).json({
+            message: "Room name Already Exists"
+        })
+       }
        const roomData = {
             id: rooms.length+1,
             room_name: room_name,
